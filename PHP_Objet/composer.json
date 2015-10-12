@@ -1,0 +1,20 @@
+{
+    "name": "romain/php_objet",
+    "authors": [
+        {
+            "name": "bioub",
+            "email": "romain.bohdanowicz@gmail.com"
+        }
+    ],
+    "require": {
+        "psr/log": "1.0.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sopra\\": "src/"
+        }
+    }
+}
