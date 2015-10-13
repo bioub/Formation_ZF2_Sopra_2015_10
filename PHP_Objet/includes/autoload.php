@@ -11,8 +11,12 @@ spl_autoload_register(function ($fqcn) use ($psr4Config) {
 
             $classPath = strtr($fqcn, '\\', DIRECTORY_SEPARATOR);
             $classPath = substr($classPath, strlen($prefix));
+            $classPath = __DIR__ . $baseDir . $classPath . '.php';
 
-            require_once __DIR__ . $baseDir . $classPath . '.php';
+            if (file_exists($classPath)) {
+                include_once $classPath;
+            }
+
             return;
         }
     }
