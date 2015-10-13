@@ -31,3 +31,4 @@ $configArray = array(
 
 $config = new \Zend\ServiceManager\Config($configArray);
 return new \Zend\ServiceManager\ServiceManager($config);
+

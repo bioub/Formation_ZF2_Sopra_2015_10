@@ -40,7 +40,8 @@ if (isset($_POST['sujet'], $_POST['message'])) {
     </p>
 
     <p>
-        <button type="submit">Nous contacter</button>
+        <button type="submit" name="submit" value="mail">Nous contacter par mail</button>
+        <button type="submit" name="submit" value="telephone">Nous contacter par téléphone</button>
     </p>
 </form>
 </body>

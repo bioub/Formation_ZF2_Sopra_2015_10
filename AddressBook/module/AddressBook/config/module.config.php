@@ -11,12 +11,52 @@ return array(
             'contact' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/',
+                    'route'    => '/contacts',
                     'defaults' => array(
                         'controller' => 'AddressBook\Controller\Contact',
                         'action'     => 'list',
                     ),
                 ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'add' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route'    => '/add',
+                            'defaults' => array(
+                                'controller' => 'AddressBook\Controller\Contact',
+                                'action'     => 'add',
+                            ),
+                        ),
+                    ),
+                    'show' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route'    => '/:id',
+                            'defaults' => array(
+                                'controller' => 'AddressBook\Controller\Contact',
+                                'action'     => 'show',
+                            ),
+                            'contraints' => array(
+                                'id' => '[1-9][0-9]*'
+                            )
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'delete' => array(
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => array(
+                                    'route'    => '/delete',
+                                    'defaults' => array(
+                                        'controller' => 'AddressBook\Controller\Contact',
+                                        'action'     => 'delete',
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+
+                )
             ),
         ),
     ),
@@ -26,8 +66,18 @@ return array(
         'template_path_stack' => array(
             __DIR__ . '/../view',
         ),
-        'template_map' => array(
-            'address-book/contact/list' => __DIR__ . '/../view/contact.phtml'
-        )
     ),
+    'service_manager' => array(
+        // invokables
+        // factories
+        'factories' => array(
+//            'AddressBook\TableGateway\Contact' => function($sm) {
+//                $adapter = $sm->get('Zend\Db\Adapter\Adapter');
+//                return new \Zend\Db\TableGateway\TableGateway('contact', $adapter);
+//            }
+        ),
+        'abstract_factories' => array(
+            'AddressBook\AbstractFactory\TableGatewayAbstractFactory'
+        )
+    )
 );
