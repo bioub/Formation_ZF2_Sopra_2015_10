@@ -38,6 +38,12 @@ class TableGatewayAbstractFactory implements AbstractFactoryInterface
      */
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
-        // TODO: Implement createServiceWithName() method.
+        $matches = array();
+        preg_match('/^([^\\\]+)\\\TableGateway\\\([^\\\]+)$/', $requestedName, $matches);
+
+        $table = strtolower($matches[2]);
+
+        $adapter = $serviceLocator->get('Zend\Db\Adapter\Adapter');
+        return new \Zend\Db\TableGateway\TableGateway($table, $adapter);
     }
 }
