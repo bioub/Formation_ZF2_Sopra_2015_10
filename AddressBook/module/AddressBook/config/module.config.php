@@ -54,6 +54,16 @@ return array(
                         ),
                         'may_terminate' => true,
                         'child_routes' => array(
+                            'modify' => array(
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => array(
+                                    'route' => '/modify',
+                                    'defaults' => array(
+                                        'controller' => 'AddressBook\Controller\Contact',
+                                        'action' => 'modify',
+                                    ),
+                                ),
+                            ),
                             'delete' => array(
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => array(

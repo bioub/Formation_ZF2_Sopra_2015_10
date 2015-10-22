@@ -1,3 +1,9 @@
-Module: AddressBook
-Controller: contact
-Action: delete
+<h2>Suppression d'un contact</h2>
+
+<form method="post">
+    <p>Êtes-vous sûr de vouloir supprimer <?php echo $this->escapeHtml($contact->getPrenom()); ?> <?php echo $this->escapeHtml($contact->getNom()); ?> de vos contacts ?</p>
+    <p>
+        <button class="btn btn-danger" type="submit" name="confirm" value="oui">Oui</button>
+        <button class="btn btn-default" type="submit">Non</button>
+    </p>
+</form>

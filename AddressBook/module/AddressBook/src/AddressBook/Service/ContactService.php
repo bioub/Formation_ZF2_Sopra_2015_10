@@ -3,6 +3,7 @@
 namespace AddressBook\Service;
 
 
+use AddressBook\Entity\Contact;
 use AddressBook\Form\ContactForm;
 use AddressBook\Repository\ContactRepository;
 use Doctrine\ORM\EntityManager;
@@ -22,6 +23,11 @@ class ContactService implements ServiceLocatorAwareInterface
      * @var ServiceLocatorInterface
      */
     protected $serviceLocator;
+
+    /**
+     * @var ContactForm
+     */
+    protected $form;
 
     /**
      * ContactService constructor.
@@ -44,19 +50,28 @@ class ContactService implements ServiceLocatorAwareInterface
     }
 
     public function find($id) {
+        return $this->getRepository()->find($id);
+    }
+
+    public function findWithSociete($id) {
         return $this->getRepository()->findWithSociete($id);
     }
 
-    public function insert($data) {
-        $contact = new Contact();
+    public function remove(Contact $contact) {
+        $this->em->remove($contact);
+        $this->em->flush();
+    }
+
+    public function persist($data) {
         $form = $this->getForm();
-        $form->bind($contact);
 
         $form->setData($data);
 
         if (!$form->isValid()) {
             return null;
         }
+
+        $contact = $form->getData();
 
         $this->em->persist($contact);
         $this->em->flush();
@@ -67,9 +82,24 @@ class ContactService implements ServiceLocatorAwareInterface
     /**
      * @return ContactForm
      */
-    public function getForm() {
-        return $this->serviceLocator->get('AddressBook\Form\Contact');
+    public function createForm($id = null) {
+        $contact = ($id) ? $this->findWithSociete($id) : new Contact();
+
+        $this->form = $this->serviceLocator->get('AddressBook\Form\Contact');
+        $this->form->bind($contact);
+
+        return $this->form;
     }
+
+    /**
+     * @return ContactForm
+     */
+    public function getForm()
+    {
+        return $this->form;
+    }
+
+
 
     /**
      * Set service locator

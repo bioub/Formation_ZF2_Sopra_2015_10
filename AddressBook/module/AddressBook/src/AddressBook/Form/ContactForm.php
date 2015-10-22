@@ -28,7 +28,7 @@ class ContactForm extends Form
         $this->add($element);
 
         $element = new \Zend\Form\Element\Submit('submit');
-        $element->setValue('Ajouter');
+        $element->setValue('Valider');
         $this->add($element);
 
     }

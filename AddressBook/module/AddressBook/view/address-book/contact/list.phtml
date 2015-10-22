@@ -14,8 +14,8 @@
         <td><?php echo $this->escapeHtml($c->getPrenom()); ?> <?php echo $this->escapeHtml($c->getNom()); ?></td>
         <td>
             <a class="btn btn-xs btn-primary" href="<?php echo $this->url('contact/show', array('id' => $c->getId())); ?>">Afficher</a>
-            <a class="btn btn-xs btn-warning" href="/contacts/1/modify">Modifier</a>
-            <a class="btn btn-xs btn-danger" href="/contacts/1/delete">Supprimer</a>
+            <a class="btn btn-xs btn-warning" href="<?php echo $this->url('contact/show/modify', array('id' => $c->getId())); ?>">Modifier</a>
+            <a class="btn btn-xs btn-danger" href="<?php echo $this->url('contact/show/delete', array('id' => $c->getId())); ?>">Supprimer</a>
         </td>
     </tr>
     <?php endforeach; ?>
