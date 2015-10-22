@@ -5,6 +5,9 @@ return array(
     'modules' => array(
         //   'Application',
         'ZendDeveloperTools',
+        'BjyProfiler',
+        'DoctrineModule',
+        'DoctrineORMModule',
         'AddressBook', // new AddressBook/Module
     ),
 

@@ -7,22 +7,16 @@
         <th>Nom complet</th>
         <th>Actions</th>
     </tr>
+    <?php foreach ($contacts as $c) : ?>
     <tr>
-        <td>Jean Dupont</td>
+        <td><?php echo $this->escapeHtml($c->getPrenom()); ?> <?php echo $this->escapeHtml($c->getNom()); ?></td>
         <td>
-            <a class="btn btn-xs btn-primary" href="/contacts/1">Afficher</a>
+            <a class="btn btn-xs btn-primary" href="<?php echo $this->url('contact/show', array('id' => $c->getId())); ?>">Afficher</a>
             <a class="btn btn-xs btn-warning" href="/contacts/1/modify">Modifier</a>
             <a class="btn btn-xs btn-danger" href="/contacts/1/delete">Supprimer</a>
         </td>
     </tr>
-    <tr>
-        <td>Eric Martin</td>
-        <td>
-            <a class="btn btn-xs btn-primary" href="/contacts/2">Afficher</a>
-            <a class="btn btn-xs btn-warning" href="/contacts/2/modify">Modifier</a>
-            <a class="btn btn-xs btn-danger" href="/contacts/2/delete">Supprimer</a>
-        </td>
-    </tr>
+    <?php endforeach; ?>
 </table>
 
 
