@@ -8,6 +8,7 @@ return array(
         'BjyProfiler',
         'DoctrineModule',
         'DoctrineORMModule',
+        'SopraBootstrap',
         'AddressBook', // new AddressBook/Module
     ),
 

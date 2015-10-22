@@ -83,11 +83,23 @@ return array(
     'service_manager' => array(
         // invokables
         // factories
+        'invokables' => array(
+            //'AddressBook\Form\Contact' => 'AddressBook\Form\ContactForm',
+            'AddressBook\InputFilter\Contact' => 'AddressBook\InputFilter\ContactInputFilter'
+        ),
         'factories' => array(
-//            'AddressBook\TableGateway\Contact' => function($sm) {
-//                $adapter = $sm->get('Zend\Db\Adapter\Adapter');
-//                return new \Zend\Db\TableGateway\TableGateway('contact', $adapter);
-//            }
+            'AddressBook\Form\Contact' => function($sm) {
+                $form = new \AddressBook\Form\ContactForm();
+
+                $inputFilter = $sm->get('AddressBook\InputFilter\Contact');
+                $form->setInputFilter($inputFilter);
+
+                $hydratorManager = $sm->get('HydratorManager');
+                $hydrator = $hydratorManager->get('DoctrineModule\Stdlib\Hydrator\DoctrineObject');
+                $form->setHydrator($hydrator);
+
+                return $form;
+            },
             'AddressBook\Service\Contact' => function($sm) {
                 $em = $sm->get('doctrine.entitymanager.orm_default');
                 return new \AddressBook\Service\ContactService($em);

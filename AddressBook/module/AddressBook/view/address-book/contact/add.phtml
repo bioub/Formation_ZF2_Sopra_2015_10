@@ -1,3 +1,26 @@
-Module: AddressBook
-Controller: contact
-Action: add
+<h2>Ajouter un contact</h2>
+
+<?php echo $this->bootstrapForm($contactForm); ?>
+
+
+<?php //echo $this->form()->openTag($contactForm); ?>
+<!--    --><?php //// echo $this->formRow($contactForm->get('prenom')); ?>
+<!--    <div class="form-group">-->
+<!--        --><?php //echo $this->formLabel($contactForm->get('prenom')); ?>
+<!--        --><?php //echo $this->formElement($contactForm->get('prenom')->setAttribute('class', 'form-control')); ?>
+<!--        --><?php //echo $this->formElementErrors($contactForm->get('prenom')); ?>
+<!--    </div>-->
+<?php //echo $this->form()->closeTag(); ?>
+
+<?php // echo $this->form($contactForm); ?>
+
+<?php $this->headStyle()->captureStart(); ?>
+/*#contact > label {
+    display : block;
+}
+
+#contact > label > span {
+    display: inline-block;
+    width: 100px;
+}*/
+<?php $this->headStyle()->captureEnd(); ?>

@@ -2,14 +2,30 @@
 
 namespace AddressBook\Controller;
 
+use AddressBook\Entity\Contact;
+use AddressBook\Form\ContactForm;
+use AddressBook\InputFilter\ContactInputFilter;
 use AddressBook\Service\ContactService;
 use Doctrine\ORM\EntityRepository;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Http\Request;
+use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 class ContactController extends AbstractActionController
 {
+    /**
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * @var Response
+     */
+    protected $response;
+
     /**
      * @var ContactService
      */
@@ -64,9 +80,28 @@ class ContactController extends AbstractActionController
         ));
     }
 
+
+
     public function addAction()
     {
-        return new ViewModel();
+        $form = $this->contactService->getForm();
+
+        if ($this->request->isPost()) {
+            $data = $this->request->getPost();
+
+            $contact = $this->contactService->insert($data);
+
+            if ($contact) {
+                $message = $contact->getPrenom() . ' ' . $contact->getNom() . ' a bien été ajouté';
+                $this->flashMessenger()->addSuccessMessage($message);
+
+                return $this->redirect()->toRoute('contact');
+            }
+        }
+
+        return new ViewModel(array(
+            'contactForm' => $form->prepare()
+        ));
     }
 
     public function deleteAction()
