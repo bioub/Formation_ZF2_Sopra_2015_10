@@ -93,10 +93,10 @@ class ContactController extends AbstractActionController
         if ($this->request->isPost()) {
             if ($this->request->getPost('confirm') === 'oui') {
                 $this->contactService->remove($contact);
-            }
 
-            $message = $contact->getPrenom() . ' ' . $contact->getNom() . ' a bien été supprimé';
-            $this->flashMessenger()->addSuccessMessage($message);
+                $message = $contact->getPrenom() . ' ' . $contact->getNom() . ' a bien été supprimé';
+                $this->flashMessenger()->addSuccessMessage($message);
+            }
 
             return $this->redirect()->toRoute('contact');
         }
@@ -109,7 +109,12 @@ class ContactController extends AbstractActionController
     public function modifyAction()
     {
         $id = $this->params('id');
-        $form = $this->contactService->createForm($id);
+        $contact = $this->contactService->find($id);
+
+        if (!$contact) {
+            return $this->notFoundAction();
+        }
+        $form = $this->contactService->createForm($contact);
 
         if ($this->request->isPost()) {
             $data = $this->request->getPost();

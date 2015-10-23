@@ -2,11 +2,12 @@
 
 namespace AddressBook\Form;
 
+use Doctrine\ORM\EntityManager;
 use Zend\Form\Form;
 
 class ContactForm extends Form
 {
-    public function __construct()
+    public function __construct(EntityManager $em)
     {
         parent::__construct('contact');
         $this->setAttribute('novalidate', 'novalidate');
@@ -26,6 +27,21 @@ class ContactForm extends Form
         $element = new \Zend\Form\Element\Text('telephone');
         $element->setLabel('Téléphone');
         $this->add($element);
+
+        $this->add(
+            array(
+                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                'name' => 'societe',
+                'options' => array(
+                    'label' => 'Société',
+                    'object_manager'     => $em,
+                    'target_class'       => 'AddressBook\Entity\Societe',
+                    'property'           => 'nom',
+                    'display_empty_item' => true,
+                    'empty_item_label'   => '-- Pas de société --',
+                ),
+            )
+        );
 
         $element = new \Zend\Form\Element\Submit('submit');
         $element->setValue('Valider');

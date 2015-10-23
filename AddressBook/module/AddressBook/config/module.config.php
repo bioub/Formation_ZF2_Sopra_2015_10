@@ -95,11 +95,18 @@ return array(
         // factories
         'invokables' => array(
             //'AddressBook\Form\Contact' => 'AddressBook\Form\ContactForm',
-            'AddressBook\InputFilter\Contact' => 'AddressBook\InputFilter\ContactInputFilter'
+            //'AddressBook\InputFilter\Contact' => 'AddressBook\InputFilter\ContactInputFilter'
         ),
         'factories' => array(
+            'AddressBook\InputFilter\Contact' => function($sm) {
+                $em = $sm->get('doctrine.entitymanager.orm_default');
+                return new \AddressBook\InputFilter\ContactInputFilter($em);
+            },
             'AddressBook\Form\Contact' => function($sm) {
-                $form = new \AddressBook\Form\ContactForm();
+
+                $em = $sm->get('doctrine.entitymanager.orm_default');
+
+                $form = new \AddressBook\Form\ContactForm($em);
 
                 $inputFilter = $sm->get('AddressBook\InputFilter\Contact');
                 $form->setInputFilter($inputFilter);
@@ -117,6 +124,9 @@ return array(
         ),
         'abstract_factories' => array(
             'AddressBook\AbstractFactory\TableGatewayAbstractFactory'
+        ),
+        'shared' => array(
+
         )
     ),
 

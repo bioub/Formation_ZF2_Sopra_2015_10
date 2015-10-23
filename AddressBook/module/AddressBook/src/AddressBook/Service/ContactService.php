@@ -82,8 +82,8 @@ class ContactService implements ServiceLocatorAwareInterface
     /**
      * @return ContactForm
      */
-    public function createForm($id = null) {
-        $contact = ($id) ? $this->findWithSociete($id) : new Contact();
+    public function createForm(Contact $contact = null) {
+        $contact = ($contact) ? $contact : new Contact();
 
         $this->form = $this->serviceLocator->get('AddressBook\Form\Contact');
         $this->form->bind($contact);

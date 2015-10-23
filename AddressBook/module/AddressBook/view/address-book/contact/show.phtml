@@ -1,4 +1,6 @@
-<h2><?php echo $this->escapeHtml($contact->getPrenom()); ?> <?php echo $this->escapeHtml($contact->getNom()); ?></h2>
+<h2>
+    <?php echo $this->escapeHtml($contact->getPrenom()); ?> <?php echo $this->escapeHtml($contact->getNom()); ?>
+</h2>
 
 <?php if ($contact->getEmail()) : ?>
 <p>Email : <?php echo $this->escapeHtml($contact->getEmail()); ?></p>
